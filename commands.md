@@ -11,3 +11,13 @@
 // checking for code coverage
 
 # cargo tarpaulin --ignore-tests
+
+// formating the whole project
+
+# cargo fmt -- --check
+
+# cargo fmt *for CI pipeline*
+
+// checking for vulnerabilities
+
+# cargo audit
