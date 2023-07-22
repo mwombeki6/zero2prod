@@ -1,6 +1,6 @@
 use zero2prod::run;
 
 #[tokio::main]
-async fn main() -> std::io::Result<()> {
+async fn main() -> anyhow::Result<()> {
     run()?.await
 }
