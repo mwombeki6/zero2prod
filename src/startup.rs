@@ -9,6 +9,7 @@ pub fn run(
 
     connection: PgConnection
 ) -> Result<Server, std::io::Error> {
+    let connection = web::Data::new(connection);
     let server = HttpServer::new(|| {
         App::new()
             .route("/health_check", web::get().to(health_check))
