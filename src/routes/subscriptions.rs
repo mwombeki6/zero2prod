@@ -14,6 +14,11 @@ pub async fn subscribe(
     // Retrieve a connection from the application state!
     pool: web::Data<PgPool>,
 ) -> HttpResponse {
+    log::info!(
+        "Adding '{}' '{}' as a new subscriber.",
+        form.email,
+        form.name,
+    );
     log::info!("Saving new subscriber details in the database");
     match sqlx::query!(
         r#"
