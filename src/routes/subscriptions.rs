@@ -14,6 +14,13 @@ pub async fn subscribe(
     // Retrieve a connection from the application state!
     pool: web::Data<PgPool>,
 ) -> HttpResponse {
+    let request_id = Uuid::new_v4();
+    log::info!(
+        "request_id {} - Adding '{}' '{}' as a new subscriber.",
+        request_id,
+        form.email,
+        form.name
+    );
     log::info!(
         "Adding '{}' '{}' as a new subscriber.",
         form.email,
