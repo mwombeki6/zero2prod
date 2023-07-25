@@ -19,11 +19,6 @@ pub async fn subscribe(
         "request_id {} - Adding '{}' '{}' as a new subscriber.",
         request_id,
         form.email,
-        form.name
-    );
-    log::info!(
-        "Adding '{}' '{}' as a new subscriber.",
-        form.email,
         form.name,
     );
     log::info!("Saving new subscriber details in the database");
