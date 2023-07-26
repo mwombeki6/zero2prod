@@ -23,9 +23,7 @@ pub async fn subscribe(
         subscriber_name = %form.name
     );
     let _request_span_guard = request_span.enter();
-    let query_span = tracing::info_span!(
-        "Saving new subscriber details in the database"
-    );
+    let query_span = tracing::info_span!("Saving new subscriber details in the database");
     log::info!(
         "request_id {} - Adding '{}' '{}' as a new subscriber.",
         request_id,
