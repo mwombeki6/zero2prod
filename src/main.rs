@@ -31,6 +31,9 @@ pub fn init_subscriber(subscriber: impl Subscriber + Send + Sync) {
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
+    let subscriber = get_subscriber("zero2prod".into(), "info".into());
+    init_subscriber(subscriber);
+
     LogTracer::init().expect("Failed to set logger");
 
     let env_filter = EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("info"));
