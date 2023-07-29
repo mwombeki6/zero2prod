@@ -6,6 +6,7 @@ use tracing_log::LogTracer;
 use tracing_subscriber::{layer::SubscriberExt, EnvFilter, Registry};
 use zero2prod::configuration::get_configuration;
 use zero2prod::startup::run;
+use zero2prod::
 
 pub fn get_subscriber(name: String, env_filter: String) -> impl Subscriber + Send + Sync {
     let env_filter =
