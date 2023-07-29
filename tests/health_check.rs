@@ -1,5 +1,3 @@
-
-
 #[tokio::test]
 async fn health_check_works() {
     // Arrange
@@ -19,12 +17,11 @@ async fn health_check_works() {
     assert_eq!(Some(0), response.content_length());
 }
 
-
 // From Helpers file
 use sqlx::types::Uuid;
 use sqlx::{Connection, Executor, PgConnection, PgPool};
-use tracing::subscriber;
 use std::net::TcpListener;
+use tracing::subscriber;
 use zero2prod::configuration::{get_configuration, DatabaseSettings};
 use zero2prod::startup::run;
 use zero2prod::telemetry::{get_subscriber, init_subscriber};
@@ -40,9 +37,11 @@ pub async fn spawn_app() -> TestApp {
     let listener = TcpListener::bind("127.0.0.1:0").expect("Failed to bind random port");
     let port = listener.local_addr().unwrap().port();
     let address = format!("http://127.0.0.1:{}", port);
+
     let mut configuration = get_configuration().expect("Failed to read configuration.");
     configuration.database.database_name = Uuid::new_v4().to_string();
     let connection_pool = configure_database(&configuration.database).await;
+
     let server = run(listener, connection_pool.clone()).expect("Failed to bind address");
     let _ = tokio::spawn(server);
     TestApp {
