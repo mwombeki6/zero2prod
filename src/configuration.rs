@@ -108,7 +108,7 @@ pub fn get_configuration() -> Result<Settings, config::ConfigError> {
         // E.g. `APP_APPLICATION__PORT=5001 would set `Settings.application.port`
         .add_source(
             config::Environment::with_prefix("APP")
-                .prefix_separator("_")
+                .separator("_")
                 .separator("__"),
         )
         .build()?;
