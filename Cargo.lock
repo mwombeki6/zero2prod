@@ -203,6 +203,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "actix-web-flash-messages"
+version = "0.4.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "300b8100fc09e9eb5036775f7d1e67f643c25fe6e796e7dbdeb8423c39482106"
+dependencies = [
+ "actix-web",
+ "anyhow",
+ "percent-encoding",
+ "serde 1.0.173",
+ "serde_json",
+ "thiserror",
+ "time 0.3.23",
+ "tokio",
+]
+
+[[package]]
 name = "addr2line"
 version = "0.20.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2831,6 +2847,7 @@ version = "0.1.0"
 dependencies = [
  "actix-session",
  "actix-web",
+ "actix-web-flash-messages",
  "chrono",
  "config",
  "log",
