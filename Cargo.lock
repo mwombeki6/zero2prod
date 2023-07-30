@@ -3308,6 +3308,7 @@ dependencies = [
  "reqwest",
  "secrecy",
  "serde 1.0.173",
+ "serde_json",
  "sqlx",
  "thiserror",
  "tokio",
