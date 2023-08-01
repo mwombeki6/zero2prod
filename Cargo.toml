@@ -54,6 +54,7 @@ reqwest = { version = "0.11", default-features = false, features = [
 ] }
 anyhow = "1.0.40"
 rand = { version = "0.8", features = ["std_rng"] }
+argon2 = { version = "0.5.1", features = ["std"] }
 
 [dev-dependencies]
 reqwest = "0.11"
