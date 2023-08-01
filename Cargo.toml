@@ -31,7 +31,7 @@ sqlx = { version = "0.6", default-features = false, features = [
     "migrate",
     "offline",
 ] }
-config = "0.11"
+config = { version = "0.13", default-features = false, features = ["yaml"] }
 uuid = { version = "1.4.1", features = ["v4"] }
 chrono = "0.4.15"
 #env_logger = "0.10.0"
