@@ -3,5 +3,6 @@ WORKDIR /app
 RUN apt update && apt install lld clang -y
 COPY . .
 ENV SQLX_OFFLINE true
-RUN cargo build --release
+# Build our project
+RUN cargo build --release --bin zero2prod
 ENTRYPOINT ["./target/release/zero2prod"]
