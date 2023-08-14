@@ -1,5 +1,5 @@
 # Builder stage
-FROM amd64/rust:1.71.1 AS builder
+FROM rust:1.71.1 AS builder
 WORKDIR /app
 RUN apt update && apt install lld clang -y
 COPY . .
