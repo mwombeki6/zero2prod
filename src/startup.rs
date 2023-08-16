@@ -118,4 +118,3 @@ async fn run(
 
 #[derive(Clone)]
 pub struct HmacSecret(pub Secret<String>);
-
