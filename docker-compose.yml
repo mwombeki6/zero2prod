@@ -1,0 +1,13 @@
+version: '3'
+services:
+  api:
+    image: lubex/zero2prod
+    environment:
+      DATABASE_URL: "postgres://postgres:${POSTGRES_PASSWORD}@db:5432"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
