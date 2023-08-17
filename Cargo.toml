@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["Erick Mwombeki <mwombekilubere@gmal.com>"]
 edition = "2021"
 description = "A short description of my package"
+license = "MIT OR Apache-2.0"
 
 #[registry]
 #index = "https://github.com/rust-lang/crates.io-index"
