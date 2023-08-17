@@ -1,21 +1,30 @@
-# Use the official Rust image as the base image
-FROM rust:1.71.1 AS build
-
-# Set the working directory inside the container
-WORKDIR /usr/src/zero2prod
-
-# Copy the project files into the container
-COPY . .
-
-# Build the Rust project using the stable-x86_64-unknown-linux-gnu target
-RUN cargo build --release --target=x86_64-unknown-linux-gnu
-
-# Create a new image with only the built application
-FROM debian:buster-slim
+FROM lukemathwalker/cargo-chef:latest-rust-1.71.1 as chef
 WORKDIR /app
+RUN apt update && apt install lld clang -y
 
-# Copy the built binary from the previous stage
-COPY --from=build /usr/src/zero2prod/target/x86_64-unknown-linux-gnu/release/zero2prod /app
+FROM chef as planner
+COPY . .
+# Compute a lock-like file for our project
+RUN cargo chef prepare  --recipe-path recipe.json
 
-# Run the binary when the container starts
-CMD ["./zero2prod"]
+FROM chef as builder
+COPY --from=planner /app/recipe.json recipe.json
+# Build our project dependencies, not our application!
+RUN cargo chef cook --release --recipe-path recipe.json
+COPY . .
+ENV SQLX_OFFLINE true
+# Build our project
+RUN cargo build --release --bin zero2prod
+
+FROM debian:bullseye-slim AS runtime
+WORKDIR /app
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends openssl ca-certificates \
+    # Clean up
+    && apt-get autoremove -y \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*
+COPY --from=builder /app/target/release/zero2prod zero2prod
+COPY configuration configuration
+ENV APP_ENVIRONMENT production
+ENTRYPOINT ["./zero2prod"]

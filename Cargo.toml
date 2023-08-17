@@ -3,7 +3,7 @@ name = "zero2prod"
 version = "0.1.0"
 authors = ["Erick Mwombeki <mwombekilubere@gmal.com>"]
 edition = "2021"
-
+description = "A short description of my package"
 
 #[registry]
 #index = "https://github.com/rust-lang/crates.io-index"
