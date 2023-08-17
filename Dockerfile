@@ -1,27 +1,21 @@
-# Use an official Ubuntu as a parent image
-FROM ubuntu:latest
-
-# Set environment variables
-ENV RUSTUP_HOME=/usr/local/rustup \
-    CARGO_HOME=/usr/local/cargo \
-    PATH=/usr/local/cargo/bin:$PATH
-
-# Install required packages
-RUN apt-get update && \
-    apt-get install -y curl build-essential clang lld && \
-    rm -rf /var/lib/apt/lists/*
-
-# Install Rust using Rustup
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+# Use the official Rust image as the base image
+FROM rust:1.71.1 AS build
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /usr/src/zero2prod
 
-# Copy the rest of the application source code to the working directory
+# Copy the project files into the container
 COPY . .
 
-# Build your Rust project using lld
-RUN cargo build --release --target x86_64-unknown-linux-gnu --locked
+# Build the Rust project using the stable-x86_64-unknown-linux-gnu target
+RUN cargo build --release --target=x86_64-unknown-linux-gnu
 
-# Set the default command to run the application
-CMD ["./target/x86_64-unknown-linux-gnu/release/zero2prod"]
+# Create a new image with only the built application
+FROM debian:buster-slim
+WORKDIR /app
+
+# Copy the built binary from the previous stage
+COPY --from=build /usr/src/zero2prod/target/x86_64-unknown-linux-gnu/release/zero2prod /app
+
+# Run the binary when the container starts
+CMD ["./zero2prod"]
