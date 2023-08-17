@@ -12,3 +12,6 @@ rustflags = ["-C", "link-arg=-fuse-ld=/usr/local/bin/zld"]
 
 [target.aarch64-apple-darwin]
 rustflags = ["-C", "link-arg=-fuse-ld=/usr/local/bin/zld"]
+
+[registries]
+my-registry = { index = "http://127.0.0.1:35503/git" }
